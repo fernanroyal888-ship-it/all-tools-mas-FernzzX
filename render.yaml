@@ -1,0 +1,42 @@
+services:
+  - type: web
+    name: all-tools-mas-fernzz
+    runtime: node
+    plan: starter
+    region: singapore
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    disk:
+      name: fernzz-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: DB_FILE
+        value: /var/data/data.sqlite
+      - key: JWT_SECRET
+        generateValue: true
+      - key: OWNER_USERNAME
+        value: FernzzX
+      - key: OWNER_PASSWORD
+        sync: false
+      - key: COBALT_API_URL
+        sync: false
+      - key: COBALT_API_KEY
+        sync: false
+      - key: TIKTOK_API_URL
+        sync: false
+      - key: TIKTOK_API_KEY
+        sync: false
+      - key: INSTAGRAM_API_URL
+        sync: false
+      - key: INSTAGRAM_API_KEY
+        sync: false
+      - key: CAPCUT_API_URL
+        sync: false
+      - key: CAPCUT_API_KEY
+        sync: false
