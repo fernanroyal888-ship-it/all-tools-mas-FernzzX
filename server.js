@@ -20,6 +20,9 @@ CREATE TABLE IF NOT EXISTS credit_ledger(id INTEGER PRIMARY KEY AUTOINCREMENT,us
 app.use(helmet({contentSecurityPolicy:false}));
 app.use(express.json({limit:"32kb"})); app.use(cookieParser());
 app.use(express.static(path.join(__dirname,"public")));
+app.get("/",(req,res)=>{
+  res.sendFile(path.join(__dirname,"index.html"));
+});
 const authLimit=rateLimit({windowMs:15*60*1000,limit:30,standardHeaders:true,legacyHeaders:false});
 function tokenFor(u){return jwt.sign({id:u.id,username:u.username},SECRET,{expiresIn:"7d"});}
 function safeUser(u){return {id:u.id,username:u.username,isPremium:!!u.is_premium,isAdmin:!!u.is_admin,createdAt:u.created_at};}
